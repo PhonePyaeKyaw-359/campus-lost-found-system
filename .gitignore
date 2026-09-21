@@ -1,0 +1,17 @@
+# Local configuration and secrets
+.env
+config/local.php
+
+# Runtime-generated uploads and logs
+uploads/lost/*
+!uploads/lost/.gitkeep
+uploads/found/*
+!uploads/found/.gitkeep
+logs/*
+!logs/.gitkeep
+
+# Editor and operating-system files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
