@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 return [
     'database' => [
-        'host' => '127.0.0.1',
+        // Matches the local MySQL account created by database/grants.example.sql.
+        'host' => 'localhost',
         'port' => 3306,
         'name' => 'campus_lost_found',
         'user' => 'campus_lost_found_app',

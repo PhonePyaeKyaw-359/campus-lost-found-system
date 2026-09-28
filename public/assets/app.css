@@ -1,0 +1,45 @@
+:root {
+    font-family: Arial, sans-serif;
+    color: #172033;
+    background: #f4f7fb;
+}
+
+* { box-sizing: border-box; }
+
+body { margin: 0; }
+
+.auth-card, .dashboard {
+    max-width: 520px;
+    margin: 8vh auto;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #d9e1ec;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(20, 45, 82, 0.08);
+}
+
+label, input, button, select, textarea { display: block; width: 100%; }
+label { margin-top: 1rem; font-weight: 600; }
+input, select, textarea { margin-top: 0.4rem; padding: 0.7rem; border: 1px solid #9aa9bc; border-radius: 4px; font: inherit; }
+textarea { min-height: 7rem; resize: vertical; }
+button { margin-top: 1.25rem; padding: 0.75rem; border: 0; border-radius: 4px; background: #1456a0; color: #fff; cursor: pointer; font-weight: 600; }
+.message { padding: 0.75rem; border-radius: 4px; }
+.message.error { background: #fde8e7; color: #95201d; }
+.message.success { background: #e4f4e8; color: #176b35; }
+.site-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 7vw; background: #0d3768; color: #fff; }
+.site-header a { color: #fff; text-decoration: none; font-weight: 700; }
+.site-header form { margin: 0; }
+.site-header .link-button { width: auto; margin: 0; padding: 0; background: transparent; text-decoration: underline; }
+.role-label { color: #4d5d73; font-weight: 600; }
+.form-card { max-width: 720px; margin: 4vh auto; padding: 2rem; background: #fff; border: 1px solid #d9e1ec; border-radius: 10px; box-shadow: 0 8px 24px rgba(20, 45, 82, 0.08); }
+.form-card .help-text { margin: 0.4rem 0 0; color: #4d5d73; font-size: 0.9rem; }
+.site-header > a + a { color: #fff; }
+.record-list { padding: 0; list-style: none; }
+.record-list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid #d9e1ec; }
+.record-list span { color: #4d5d73; }
+.details { display: grid; grid-template-columns: max-content 1fr; gap: 0.75rem 1rem; }
+.details dt { font-weight: 700; }
+.details dd { margin: 0; }
+.report-photo { display: block; max-width: 100%; max-height: 440px; margin-top: 1.5rem; border-radius: 6px; }
+.primary-link { display: inline-block; padding: 0.75rem 1rem; border-radius: 4px; background: #1456a0; color: #fff; text-decoration: none; font-weight: 600; }
+.action-panel { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #d9e1ec; }
