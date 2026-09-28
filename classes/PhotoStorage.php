@@ -6,6 +6,18 @@ final class PhotoStorage
     /** @param array<string, mixed>|null $upload */
     public static function storeLostPhoto(?array $upload): ?string
     {
+        return self::store($upload, 'lost');
+    }
+
+    /** @param array<string, mixed>|null $upload */
+    public static function storeFoundPhoto(?array $upload): ?string
+    {
+        return self::store($upload, 'found');
+    }
+
+    /** @param array<string, mixed>|null $upload */
+    private static function store(?array $upload, string $type): ?string
+    {
         if ($upload === null || ($upload['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
             return null;
         }
@@ -32,8 +44,8 @@ final class PhotoStorage
         }
 
         $extension = $mimeType === 'image/jpeg' ? 'jpg' : 'png';
-        $relativePath = 'lost/lost_' . bin2hex(random_bytes(16)) . '.' . $extension;
-        $storageDirectory = dirname(__DIR__) . '/uploads/lost';
+        $relativePath = $type . '/' . $type . '_' . bin2hex(random_bytes(16)) . '.' . $extension;
+        $storageDirectory = dirname(__DIR__) . '/uploads/' . $type;
         if (!is_dir($storageDirectory) && !mkdir($storageDirectory, 0700, true) && !is_dir($storageDirectory)) {
             imagedestroy($image);
             throw new RuntimeException('The upload storage directory is unavailable.');
@@ -59,7 +71,7 @@ final class PhotoStorage
 
     public static function delete(?string $relativePath): void
     {
-        if ($relativePath === null || !preg_match('#^lost/lost_[a-f0-9]{32}\.(jpg|png)$#', $relativePath)) {
+        if ($relativePath === null || !preg_match('#^(lost|found)/\1_[a-f0-9]{32}\.(jpg|png)$#', $relativePath)) {
             return;
         }
 
@@ -72,6 +84,16 @@ final class PhotoStorage
     public static function absoluteLostPath(string $relativePath): ?string
     {
         if (!preg_match('#^lost/lost_[a-f0-9]{32}\.(jpg|png)$#', $relativePath)) {
+            return null;
+        }
+
+        $path = dirname(__DIR__) . '/uploads/' . $relativePath;
+        return is_file($path) ? $path : null;
+    }
+
+    public static function absoluteFoundPath(string $relativePath): ?string
+    {
+        if (!preg_match('#^found/found_[a-f0-9]{32}\.(jpg|png)$#', $relativePath)) {
             return null;
         }
 

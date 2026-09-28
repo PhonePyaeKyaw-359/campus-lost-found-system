@@ -37,8 +37,12 @@ $dashboardDescriptions = [
         <?php if ($user['role'] === 'student'): ?>
             <p><a class="primary-link" href="student/lost_create.php">Report a lost item</a> <a href="student/lost_list.php">My lost reports</a></p>
             <p><a class="primary-link" href="student/found_create.php">Report a found item</a> <a href="student/found_list.php">My found reports</a></p>
+            <p><a class="primary-link" href="student/search.php">Search found items</a></p>
+            <p><a href="student/claims.php">View my claims</a></p>
         <?php elseif ($user['role'] === 'staff' || $user['role'] === 'admin'): ?>
             <p><a class="primary-link" href="staff/found_reports.php">Review found-item reports</a></p>
+            <p><a class="primary-link" href="staff/item_create.php">Register found item</a> <a href="staff/items.php">View official found items</a></p>
+            <p><a class="primary-link" href="staff/claims.php">Review claims</a></p>
         <?php else: ?>
             <p>The next development feature will add the relevant actions to this dashboard.</p>
         <?php endif; ?>

@@ -43,3 +43,10 @@ button { margin-top: 1.25rem; padding: 0.75rem; border: 0; border-radius: 4px; b
 .report-photo { display: block; max-width: 100%; max-height: 440px; margin-top: 1.5rem; border-radius: 6px; }
 .primary-link { display: inline-block; padding: 0.75rem 1rem; border-radius: 4px; background: #1456a0; color: #fff; text-decoration: none; font-weight: 600; }
 .action-panel { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #d9e1ec; }
+.checkbox { display: flex; align-items: center; gap: 0.55rem; font-weight: 400; }
+.checkbox input { width: auto; margin: 0; }
+.search-results { padding: 0; list-style: none; }
+.search-results li { padding: 1rem 0; border-bottom: 1px solid #d9e1ec; }
+.search-results h2 { margin: 0; font-size: 1.1rem; }
+.search-results p { margin: 0.5rem 0 0; }
+.pagination { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }

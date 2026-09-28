@@ -12,6 +12,9 @@ The project foundation is in place:
 - Secure login/logout, CSRF protection, session timeout, account lockout, role-aware dashboard, and activity logging
 - Student lost-item reports with controlled-list validation, ownership checks, and private photo delivery
 - Student found-item reports, limited to their author and staff/admin review; staff can close an unreceived report with an audit-log reason
+- Staff registration of official found items, with unique reference numbers, separate private details, storage locations, and controlled photo publication
+- Student search for available found items by keyword, category, colour, and campus location, with public-only result fields and pagination
+- Claim workflow with private ownership details, a three-rejection limit, single-pending-claim rule, approval locking, cancellation, ID verification, collection, and audit logging
 
 The next feature is official found-item registration by staff.
 

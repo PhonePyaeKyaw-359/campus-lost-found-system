@@ -6,13 +6,17 @@ require_once __DIR__ . '/../includes/bootstrap.php';
 $user = require_login();
 $type = $_GET['type'] ?? '';
 $recordId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
-if ($type !== 'lost' || $recordId === false || $recordId === null) {
+if (!in_array($type, ['lost', 'found'], true) || $recordId === false || $recordId === null) {
     http_response_code(404);
     exit('Photo not found.');
 }
 
-$relativePath = LostReport::canViewPhoto($recordId, $user);
-$path = $relativePath === null ? null : PhotoStorage::absoluteLostPath($relativePath);
+$relativePath = $type === 'lost'
+    ? LostReport::canViewPhoto($recordId, $user)
+    : FoundItem::canViewPhoto($recordId, $user);
+$path = $relativePath === null ? null : ($type === 'lost'
+    ? PhotoStorage::absoluteLostPath($relativePath)
+    : PhotoStorage::absoluteFoundPath($relativePath));
 if ($path === null) {
     http_response_code(404);
     exit('Photo not found.');
