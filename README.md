@@ -15,6 +15,8 @@ The project foundation is in place:
 - Staff registration of official found items, with unique reference numbers, separate private details, storage locations, and controlled photo publication
 - Student search for available found items by keyword, category, colour, and campus location, with public-only result fields and pagination
 - Claim workflow with private ownership details, a three-rejection limit, single-pending-claim rule, approval locking, cancellation, ID verification, collection, and audit logging
+- Role-based account management with Student accounts managed by Staff/Admin, Staff/Admin accounts managed only by Admin, password setting, self-disable protection, and last-active-Admin protection
+- Role dashboards and an append-only activity-history page with action, record-type, and date filters
 
 The next feature is official found-item registration by staff.
 

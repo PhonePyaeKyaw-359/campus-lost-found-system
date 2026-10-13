@@ -50,3 +50,10 @@ button { margin-top: 1.25rem; padding: 0.75rem; border: 0; border-radius: 4px; b
 .search-results h2 { margin: 0; font-size: 1.1rem; }
 .search-results p { margin: 0.5rem 0 0; }
 .pagination { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+.danger-button { background: #9c2621; }
+.metric-summary { padding: 0.75rem; background: #e9f1fb; border-radius: 4px; }
+.metric-list { padding-left: 1.25rem; line-height: 1.8; }
+.table-wrap { overflow-x: auto; margin-top: 1.5rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 0.65rem; border: 1px solid #d9e1ec; text-align: left; vertical-align: top; }
+th { background: #e9f1fb; }

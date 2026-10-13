@@ -5,6 +5,7 @@ require_once __DIR__ . '/../includes/bootstrap.php';
 
 $user = require_login();
 $flash = consume_flash();
+$metrics = DashboardMetrics::forUser($user);
 $dashboardDescriptions = [
     'student' => 'Search found items, report a lost item, or view the status of your reports and claims.',
     'staff' => 'Review found reports, claims awaiting review, approved collections, and items in storage.',
@@ -35,14 +36,19 @@ $dashboardDescriptions = [
         <?php endif; ?>
         <p><?= e($dashboardDescriptions[(string) $user['role']] ?? '') ?></p>
         <?php if ($user['role'] === 'student'): ?>
+            <p class="metric-summary">Open lost reports: <?= (int) $metrics['open_lost_reports'] ?> · Pending claims: <?= (int) $metrics['pending_claims'] ?></p>
             <p><a class="primary-link" href="student/lost_create.php">Report a lost item</a> <a href="student/lost_list.php">My lost reports</a></p>
             <p><a class="primary-link" href="student/found_create.php">Report a found item</a> <a href="student/found_list.php">My found reports</a></p>
             <p><a class="primary-link" href="student/search.php">Search found items</a></p>
             <p><a href="student/claims.php">View my claims</a></p>
         <?php elseif ($user['role'] === 'staff' || $user['role'] === 'admin'): ?>
+            <ul class="metric-list"><li>Found reports awaiting receipt: <?= (int) $metrics['found_reports_awaiting_receipt'] ?></li><li>Claims awaiting review: <?= (int) $metrics['claims_awaiting_review'] ?></li><li>Approved claims awaiting collection: <?= (int) $metrics['approved_claims_awaiting_collection'] ?></li><li>Items in storage: <?= (int) $metrics['items_in_storage'] ?></li></ul>
             <p><a class="primary-link" href="staff/found_reports.php">Review found-item reports</a></p>
             <p><a class="primary-link" href="staff/item_create.php">Register found item</a> <a href="staff/items.php">View official found items</a></p>
             <p><a class="primary-link" href="staff/claims.php">Review claims</a></p>
+            <p><a href="staff/students.php">Manage Student accounts</a></p>
+            <p><a href="staff/history.php">View activity history</a></p>
+            <?php if ($user['role'] === 'admin'): ?><p><a href="admin/accounts.php">Manage Staff and Admin accounts</a></p><?php endif; ?>
         <?php else: ?>
             <p>The next development feature will add the relevant actions to this dashboard.</p>
         <?php endif; ?>
