@@ -17,6 +17,8 @@ The project foundation is in place:
 - Claim workflow with private ownership details, a three-rejection limit, single-pending-claim rule, approval locking, cancellation, ID verification, collection, and audit logging
 - Role-based account management with Student accounts managed by Staff/Admin, Staff/Admin accounts managed only by Admin, password setting, self-disable protection, and last-active-Admin protection
 - Role dashboards and an append-only activity-history page with action, record-type, and date filters
+- Staff lost-report management, including private report review, possible-match notes, and deliberate resolution
+- Staff editing of official found-item details, while retaining separate controls for public photo visibility
 
 The next feature is official found-item registration by staff.
 

@@ -42,6 +42,18 @@ final class FoundItem
         )->fetchAll();
     }
 
+    /** @param array<string, mixed> $actor
+     *  @return list<array<string, mixed>>
+     */
+    public static function listAvailableForPossibleMatch(array $actor): array
+    {
+        self::requireStaff($actor);
+        return database()->query(
+            "SELECT id, reference_number, item_name, category, found_location
+             FROM found_items WHERE status = 'in_storage' ORDER BY received_datetime DESC"
+        )->fetchAll();
+    }
+
     /** @param array<string, mixed> $filters
      *  @param array<string, mixed> $actor
      *  @return array{items: list<array<string, mixed>>, total: int, page: int, total_pages: int}
@@ -153,6 +165,34 @@ final class FoundItem
     }
 
     /** @param array<string, mixed> $data
+     *  @param array<string, mixed> $actor
+     */
+    public static function update(int $itemId, array $data, array $actor): void
+    {
+        self::requireStaff($actor);
+        $item = self::validate($data);
+        unset($item['show_photo_publicly']);
+        $pdo = database();
+        $pdo->beginTransaction();
+        try {
+            self::lockItemForEdit($pdo, $itemId);
+            $pdo->prepare(
+                'UPDATE found_items
+                 SET item_name = :item_name, category = :category, colour = :colour, brand = :brand,
+                     public_description = :public_description, private_details = :private_details,
+                     found_location = :found_location, location_detail = :location_detail,
+                     found_datetime = :found_datetime, storage_location = :storage_location
+                 WHERE id = :id'
+            )->execute(array_merge($item, ['id' => $itemId]));
+            ActivityLog::recordAction($actor, 'ITEM_EDITED', 'found_item', $itemId, 'Found-item record updated.', client_ip());
+            $pdo->commit();
+        } catch (Throwable $exception) {
+            if ($pdo->inTransaction()) { $pdo->rollBack(); }
+            throw $exception;
+        }
+    }
+
+    /** @param array<string, mixed> $data
      *  @param array<string, mixed>|null $photo
      *  @param array<string, mixed> $actor
      */
@@ -210,6 +250,16 @@ final class FoundItem
             PhotoStorage::delete($photoPath);
             throw $exception;
         }
+    }
+
+    /** @return array<string, mixed> */
+    private static function lockItemForEdit(PDO $pdo, int $itemId): array
+    {
+        $statement = $pdo->prepare('SELECT id FROM found_items WHERE id = :id FOR UPDATE');
+        $statement->execute(['id' => $itemId]);
+        $item = $statement->fetch();
+        if (!is_array($item)) { throw new OutOfBoundsException('Found item not found.'); }
+        return $item;
     }
 
     /** @param array<string, mixed> $data

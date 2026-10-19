@@ -46,6 +46,7 @@ $dashboardDescriptions = [
             <p><a class="primary-link" href="staff/found_reports.php">Review found-item reports</a></p>
             <p><a class="primary-link" href="staff/item_create.php">Register found item</a> <a href="staff/items.php">View official found items</a></p>
             <p><a class="primary-link" href="staff/claims.php">Review claims</a></p>
+            <p><a class="primary-link" href="staff/lost_reports.php">Manage lost-item reports</a></p>
             <p><a href="staff/students.php">Manage Student accounts</a></p>
             <p><a href="staff/history.php">View activity history</a></p>
             <?php if ($user['role'] === 'admin'): ?><p><a href="admin/accounts.php">Manage Staff and Admin accounts</a></p><?php endif; ?>

@@ -1,0 +1,10 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../../includes/bootstrap.php';
+$user = require_role(['staff', 'admin']);
+$filters = ['status' => (string) ($_GET['status'] ?? ''), 'category' => (string) ($_GET['category'] ?? '')];
+$error = null;
+try { $reports = LostReport::listForStaff($filters, $user); } catch (DomainException $exception) { $reports = []; $error = $exception->getMessage(); }
+?>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lost-item reports | <?= e(APP_NAME) ?></title><link rel="stylesheet" href="../assets/app.css"></head>
+<body><header class="site-header"><a href="../dashboard.php"><?= e(APP_NAME) ?></a><a href="../dashboard.php">Dashboard</a></header><main class="form-card"><h1>Lost-item reports</h1><?php if ($error): ?><p class="message error"><?= e($error) ?></p><?php endif; ?><form method="get" class="filter-form"><label for="status">Status</label><select id="status" name="status"><option value="">All statuses</option><?php foreach (['lost', 'possible_match', 'resolved'] as $status): ?><option value="<?= e($status) ?>" <?= $filters['status'] === $status ? 'selected' : '' ?>><?= e($status) ?></option><?php endforeach; ?></select><label for="category">Category</label><select id="category" name="category"><option value="">All categories</option><?php foreach (CATEGORIES as $category): ?><option value="<?= e($category) ?>" <?= $filters['category'] === $category ? 'selected' : '' ?>><?= e($category) ?></option><?php endforeach; ?></select><button type="submit">Filter reports</button></form><ul class="record-list"><?php foreach ($reports as $report): ?><li><a href="lost_report_view.php?id=<?= (int) $report['id'] ?>"><?= e((string) $report['item_name']) ?></a><span><?= e((string) $report['status']) ?> · <?= e((string) $report['reporter_name']) ?></span></li><?php endforeach; ?></ul><?php if ($reports === []): ?><p>No lost-item reports match these filters.</p><?php endif; ?></main></body></html>
