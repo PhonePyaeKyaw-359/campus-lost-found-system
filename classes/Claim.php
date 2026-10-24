@@ -237,6 +237,9 @@ final class Claim
             $claim = self::lockClaim($pdo, $claimId);
             if ($claim['status'] !== 'approved') { throw new DomainException('Only an approved claim can be updated.'); }
             if ($operation === 'id_check') {
+                if ((bool) $claim['id_checked']) {
+                    throw new DomainException('The university ID check has already been recorded for this claim.');
+                }
                 $pdo->prepare('UPDATE claims SET id_checked = 1, id_checked_by = :staff_id, id_checked_at = NOW() WHERE id = :id')
                     ->execute(['staff_id' => $actor['id'], 'id' => $claimId]);
                 ActivityLog::recordAction($actor, 'ID_CHECKED', 'claim', $claimId, 'Claimant identification checked.', client_ip());

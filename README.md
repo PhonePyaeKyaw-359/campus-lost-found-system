@@ -19,8 +19,9 @@ The project foundation is in place:
 - Role dashboards and an append-only activity-history page with action, record-type, and date filters
 - Staff lost-report management, including private report review, possible-match notes, and deliberate resolution
 - Staff editing of official found-item details, while retaining separate controls for public photo visibility
+- Claim collection safeguards: a recorded in-person ID check is required exactly once before an item can be released
 
-The next feature is official found-item registration by staff.
+All first-prototype requirements in the included specification are implemented. Before deployment, configure a production database account, run the application with HTTPS, and carry out the manual test cases for each workflow.
 
 ## Local setup
 
